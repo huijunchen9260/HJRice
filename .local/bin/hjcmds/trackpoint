@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ModelMID=$(xinput --list | grep "Barcode Reader  Mouse" | cut -f 2 | cut -d '=' -f 2)
+veloID=$(xinput list-props $ModelMID | grep "Velocity" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
+consID=$(xinput list-props $ModelMID | grep "Constant" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
+
+xinput set-prop $ModelMID $consID 0.2 || exit 0
+xinput set-prop $ModelMID $veloID 0.1 || exit 0

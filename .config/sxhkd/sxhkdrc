@@ -1,0 +1,260 @@
+##############
+#  Software  #
+##############
+
+# Basic binds
+mod4 + Return
+	$TERMINAL
+mod4 + control + Return
+	$TERMINAL -e tmux
+mod4 + d
+	dmenu_run
+mod4 + r
+	dmenufm
+# mod4 + control + r
+# 	$TERMINAL
+mod4 + m
+	$TERMINAL -e ncmpcpp
+mod4 + n
+	$TERMINAL -e newsboat
+mod4 + control + a
+	$TERMINAL -e pulsemixer
+mod4 + control + c
+	camtoggle
+mod4 + control + e
+	tutorialvids
+mod4 + w
+	$TERMINAL -e nmtui
+mod4 + control + w
+	$BROWSER
+mod4 + g
+	texnote
+mod4 + x
+	xournalpp
+
+# Et cetera...
+mod4 + grave
+	dmenuunicode
+mod4 + Scroll_Lock
+	killall screenkey || screenkey
+mod4 + Insert
+	showclip
+# mod4 + x
+# 	mpc pause; pauseallmpv; i3lock -e -f -c 1d2021; xset dpms force off
+XF86LaunchA
+	xset dpms force off
+mod1 + space
+	via
+mod4 + e
+	~/.vim-anywhere/bin/runtex
+mod4 + control + d
+	$TERMINAL -e ncdu
+mod4 + control + m
+	manpdf
+mod4 + control + g
+	inkfig
+mod4 + control + n
+	$TERMINAL -e joplin
+
+# Recording
+# Take screenshot
+Insert
+	flameshot gui
+# Print
+# 	maim $HOME/Pictures/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png
+# Pick screenshot type
+control + Insert
+	maimpick
+# Record audio or video
+mod4 + Insert
+	dmenurecord
+# kill active recording
+mod4 + Delete
+	dmenurecord kill
+
+###########
+#  Music  #
+###########
+
+# Pause audio
+mod4 + {_,control +} p
+	lmc {toggle,pause}
+# Changes to next/previous tracks
+mod4 + {comma,period}
+	lmc {prev,next}
+# Restart track
+mod4 + control + less
+	lmc replay
+# Increase volume
+mod4 + {equal,plus}
+	lmc up {5,15}
+XF86AudioRaiseVolume
+	lmc up 5
+shift+XF86AudioRaiseVolume
+	lmc up 10
+control + XF86AudioRaiseVolume
+	lmc up 1
+# Decrease volume
+mod4 {_,control +} + minus
+	lmc down {5,15}
+XF86AudioLowerVolume
+	lmc down 5
+shift + XF86AudioLowerVolume
+	lmc down 10
+control + XF86AudioLowerVolume
+	lmc down 1
+# Mute
+XF86AudioMute
+	lmc mute
+# Seek foward in song
+mod4 + {_,control +} bracketright
+	lmc forward {10,120}
+# Seek backward in song
+mod4 + {_,control +} bracketleft
+	lmc back {10,120}
+
+###############
+#  Backlight  #
+###############
+
+# Thinkpad T450s specific setting
+# See https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T450s
+# For more information
+
+# Decrease brightness with F5 function key
+XF86MonBrightnessDown
+	backlight -0.1
+
+# Increase brightness with F6 function key
+XF86MonBrightnessUp
+	backlight 0.1
+
+# Toggle touchpad on and off with F9 function key
+XF86Tools
+	touchpad
+
+
+
+# Function keys
+# Show readme
+mod4 + F1
+	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
+# F2 is restart in i3 right now.
+# Change display
+mod4 + F3
+	displayselect
+# Hibernate
+mod4 + F4
+	prompt 'Hibernate computer?' 'sudo systemctl suspend'
+# Restart/rescan wifi/eth networks
+mod4 + F5
+	sudo -A systemctl restart NetworkManager
+# Start torrent daemon/open interface
+mod4 + F6
+	torwrap
+# toggle torrent daemon
+mod4 + F7
+	td-toggle
+# sync email
+mod4 + F8
+	mailsync
+# Mount a USB drive or Android device
+mod4 + F9
+	dmenumount
+# Unmount a USB drive or Android device
+mod4 + F10
+	dmenuumount
+# Search with Duckduckgo
+mod4 + F11
+	search
+# Network Manager interface
+mod4 + F12
+	$TERMINAL -e sudo -A nmtui
+
+
+#####################
+##  bspwm bindings  #
+#####################
+
+# shutdown/reboot computer
+mod4 + shift + x
+	prompt "Shutdown computer?" "sudo -A shutdown -h now"
+mod4 + shift + BackSpace
+	prompt "Reboot computer?" "sudo -A shutdown -r now"
+# quit/restart bspwm
+mod4 + shift + Escape
+	prompt "Quit BSPWM?" "bspc quit"
+mod4 + shift + r
+	prompt "Restart BSPWM?" "$HOME/.config/bspwm/bspwmrc"
+	# prompt "Restart BSPWM?" "bspc wm -r"
+
+# close and kill
+mod4 + {_,shift + }q
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+mod4 + t
+	bspc desktop -l next
+
+# focus the node in the given direction
+mod4 + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the next/previous node in the current desktop
+mod4 + Tab
+	bspc node -f next.local
+
+# focus the older or newer node in the focus history
+mod4  + ctrl + {h,l}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+mod4 + {_,ctrl + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# move floating window
+# mod4 + {y,u,i,o}
+# 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+expand a window by moving one of its side outward
+mod4 + shift + {y,u,i,o}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# # contract a window by moving one of its side inward
+# mod4 + ctrl + {y,u,i,o}
+# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+	# bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off)
+
+# toggle hidden or sticky for floating window
+mod4 + a
+	if [ -z $(bspc query -N -n .hidden) ]; then \
+		bspc node -g hidden; \
+	else \
+		bspc node $(bspc query -N -n .hidden | tail -n 1) -g hidden=off; \
+	fi
+
+# toggle floating window and tiled (or monocle)
+mod4 + f
+	if [ -z "$(bspc query -N -n focused.floating)" ]; then \
+		bspc node focused -t floating; \
+	else \
+		bspc node focused -t tiled; \
+	fi
+
+# toggle fullscreen window and tiled (or monocle)
+# automatically hide and show polybar
+mod4 + ctrl + f
+	if [ -z "$(bspc query -N -n focused.fullscreen)" ]; then \
+		bspc node focused -t fullscreen; \
+		polybar-msg cmd hide; \
+	else \
+		bspc node focused -t tiled; \
+		polybar-msg cmd show; \
+	fi
+
+# toggle the visibility of polybar
+mod4 + ctrl + v
+	polybar-msg cmd toggle

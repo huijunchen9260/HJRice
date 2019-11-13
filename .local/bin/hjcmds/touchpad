@@ -1,0 +1,9 @@
+#!/bin/sh
+
+id=$(xinput | grep "Synaptics TM3053-004" | cut -f 2 | cut -d "=" -f 2)
+status=$(xinput --list-props "$id" | grep Enabled | awk '{print $4}')
+if [ "$status" = "1" ]; then
+	xinput --disable "$id" >&2
+else
+	xinput --enable "$id" >&2
+fi

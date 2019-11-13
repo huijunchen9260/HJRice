@@ -1,0 +1,7 @@
+#!/bin/sh
+# Adjustment is first argument
+
+brightness=`xrandr --verbose | grep -m 1 -i brightness | cut -f2 -d ' '`
+adjustment=$1
+result=$(echo "$brightness+$adjustment" | bc -q)
+xrandr --output eDP1 --brightness $result

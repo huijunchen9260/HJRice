@@ -1,0 +1,56 @@
+*/10 * * * * via-feed -r
+#0   * * rclone copy $HOME/Documents/Google_Drive/ shelby:/
+
+# Dropbox sync Gnucash
+*/15 * * * * rclone copy "shelby-dropbox://Apps/GnuCash Android" "$HOME/Documents/Dropbox/Apps/GnuCash Android"
+
+# Simple X hotkey daemon configuration
+*/15 * * * * rsync $HOME/.config/sxhkd/sxhkdrc $HOME/ShelbyConfig/ShelbyRicing/.config/sxhkd/sxhkdrc
+
+# Bspwm configuration
+*/15 * * * * rsync $HOME/.config/bspwm/bspwmrc $HOME/ShelbyConfig/ShelbyRicing/.config/bspwm/bspwmrc
+
+# Polybar configuration
+*/15 * * * * rsync -r $HOME/.config/polybar/ $HOME/ShelbyConfig/ShelbyRicing/.config/polybar/
+
+# vim configuration
+*/15 * * * * rsync $HOME/.config/nvim/ $HOME/ShelbyConfig/ShelbyRicing/.vim/
+
+# Backup scripts
+*/15 * * * * rsync -r $HOME/.local/bin/ $HOME/ShelbyConfig/ShelbyRicing/.local/bin/
+
+# Export pacman and AUR program lists
+*/15 * * * * pacman -Qqem > $HOME/ShelbyConfig/ShelbyRicing/applist/aurlist
+*/15 * * * * pacman -Qqen > $HOME/ShelbyConfig/ShelbyRicing/applist/pacmanlist
+
+# Backup my dotfiles
+*/15 * * * * rsync $HOME/.profile $HOME/ShelbyConfig/ShelbyRicing/.profile
+*/15 * * * * rsync $HOME/.bashrc $HOME/ShelbyConfig/ShelbyRicing/.bashrc
+*/15 * * * * rsync $HOME/.zshrc $HOME/ShelbyConfig/ShelbyRicing/.zshrc
+*/15 * * * * rsync $HOME/.tmux.conf $HOME/ShelbyConfig/ShelbyRicing/.tmux.conf
+*/15 * * * * rsync $HOME/.pam_environment $HOME/ShelbyConfig/ShelbyRicing/.pam_environment
+*/15 * * * * rsync $HOME/.xinitrc $HOME/ShelbyConfig/ShelbyRicing/.xinitrc
+*/15 * * * * rsync $HOME/.xprofile $HOME/ShelbyConfig/ShelbyRicing/.xprofile
+*/15 * * * * rsync $HOME/.Xresources $HOME/ShelbyConfig/ShelbyRicing/.Xresources
+*/15 * * * * rsync $HOME/.config/fffrc $HOME/ShelbyConfig/ShelbyRicing/.config/fffrc
+*/15 * * * * rsync $HOME/.config/emoji $HOME/ShelbyConfig/ShelbyRicing/.config/emoji
+*/15 * * * * rsync $HOME/.config/bmdirs $HOME/ShelbyConfig/ShelbyRicing/.config/bmdirs
+*/15 * * * * rsync $HOME/.config/bmfiles $HOME/ShelbyConfig/ShelbyRicing/.config/bmfiles
+*/15 * * * * rsync $HOME/.config/greek $HOME/ShelbyConfig/ShelbyRicing/.config/greek
+*/15 * * * * rsync $HOME/.config/locale.conf $HOME/ShelbyConfig/ShelbyRicing/.config/locale.conf
+*/15 * * * * rsync $HOME/.config/aliasrc $HOME/ShelbyConfig/ShelbyRicing/.config/aliasrc
+*/15 * * * * rsync $HOME/.config/shortcutrc $HOME/ShelbyConfig/ShelbyRicing/.config/shortcutrc
+*/15 * * * * rsync $HOME/.config/mimeapps.list $HOME/ShelbyConfig/ShelbyRicing/.config/mimeapps.list
+*/15 * * * * rsync $HOME/.config/wall.jpg $HOME/ShelbyConfig/ShelbyRicing/.config/wall.jpg
+*/15 * * * * rsync --links $HOME/.bash_profile $HOME/ShelbyConfig/ShelbyRicing/.bash_profile
+*/15 * * * * rsync --links $HOME/.vimrc $HOME/ShelbyConfig/ShelbyRicing/.vimrc
+*/15 * * * * rsync --links $HOME/.vim $HOME/ShelbyConfig/ShelbyRicing/
+*/15 * * * * rsync --links $HOME/.Xdefaults $HOME/ShelbyConfig/ShelbyRicing/.Xdefaults
+*/15 * * * * rsync --links $HOME/.zprofile $HOME/ShelbyConfig/ShelbyRicing/.zprofile
+
+
+# Sync joplin
+*/15 * * * * joplin sync
+
+# Export the cronjob list
+*/15 * * * * crontab -l > $HOME/ShelbyConfig/ShelbyRicing/cronjob

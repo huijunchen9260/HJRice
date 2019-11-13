@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Favourites (Bookmarks) (keys 1-9) (dir or file)
+export FFF_FAV1=${HOME}/Documents/Google_Drive/Ohio_related/
+export FFF_FAV2=${HOME}/ShelbyConfig/
+export FFF_FAV3=${HOME}/.config/
+export FFF_FAV4=${HOME}/Videos/
+export FFF_FAV5=${HOME}/Pictures/
+export FFF_FAV6=${HOME}/Documents/Google_Drive/
+export FFF_FAV7=${HOME}/.local/bin/
+export FFF_FAV8=${HOME}/.config/bspwm/bspwmrc
+export FFF_FAV9=${HOME}/.config/sxhkd/sxhkdrc

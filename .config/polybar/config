@@ -1,0 +1,178 @@
+[colors]
+glass  = #00000000
+light  = #eee
+ash    = #999
+blood = #ddFF7F7F
+
+[bar/top-eDP1]
+width = 100%
+height = 18
+
+bottom = false
+monitor = eDP1
+
+; override-redirect = true
+enable-ipc = true
+
+background = ${colors.glass}
+foreground = ${colors.light}
+
+border-size = 4
+border-color = ${colors.glass}
+
+module-margin-right = 3
+
+font-0 = Ubuntu Nerd Font:style=Light,Regular:pixelsize=12;2
+font-1 = Noto Sans CJK TC:style=Regular
+
+modules-left = bspwm xwindow
+modules-right = mpd cpu memory battery-zero-shell battery-one-shell pulseaudio wireless-network wired-network time
+
+separator="|    "
+
+[bar/top-DP2]
+width = 100%
+height = 18
+
+bottom = false
+monitor = DP2
+
+; override-redirect = true
+enable-ipc = true
+
+background = ${colors.glass}
+foreground = ${colors.light}
+
+border-size = 4
+border-color = ${colors.glass}
+
+module-margin-right = 3
+
+font-0 = Ubuntu Nerd Font:style=Light,Regular:pixelsize=12;2
+font-1 = Noto Sans CJK TC:style=Regular
+
+modules-left = bspwm xwindow
+modules-right = mpd cpu memory battery-zero-shell battery-one-shell pulseaudio wireless-network wired-network time
+
+separator="|    "
+; ---------------------------------------------------------------------------------------
+; MODULES
+; ---------------------------------------------------------------------------------------
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+ws-icon-default = 
+
+format = <label-state> <label-mode>
+
+label-focused = %icon%
+label-focused-padding = 3
+;label-focused-foreground = ${colors.blood}
+
+label-occupied = %icon%
+label-occupied-padding = 3
+label-occupied-foreground = ${colors.ash}
+
+label-urgent = %icon%
+label-urgent-padding = 3
+
+label-empty = 
+label-empty-padding = 3
+label-empty-foreground = ${colors.ash}
+
+[module/xwindow]
+type = internal/xwindow
+label-maxlen = 40
+
+
+; [module/tabs]
+; type = custom/script
+; exec = /home/shelby/.config/polybar/tabs '#eee' '#aaa'
+; interval = 0
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+format-online = <label-time>%{F#999}%{F-}<label-song>
+label-song = "%title%"
+; use CJK font for Chinese, Japanese, and Korean
+label-active-font = 1
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+label =  %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 3
+format = <label>
+label =  %gb_used%/%gb_total%
+
+
+[module/battery-zero-shell]
+type = custom/script
+exec = /home/shelby/.config/polybar/battery-zero.sh
+interval = 10
+
+[module/battery-one-shell]
+type = custom/script
+exec = /home/shelby/.config/polybar/battery-one.sh
+interval = 10
+
+[module/pulseaudio]
+type = internal/pulseaudio
+interval = 5
+use-ui-max = true
+
+format-volume = <ramp-volume> <label-volume>
+
+format-muted = <label-muted>
+
+label-volume =  "%{F#999}%{F-}%percentage:3%% "
+label-muted = "   %{F#999}%{F-}  "
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/wireless-network]
+type = internal/network
+interface = wlp3s0
+label-connected =   %signal%%
+label-disconnected = 
+
+format-connected =  <label-connected>
+
+format-disconnected =  <label-disconnected>
+
+[module/wired-network]
+type = internal/network
+interface = enp0s25
+
+label-connected =   %signal%%
+label-disconnected = 
+
+format-connected =  <label-connected>
+
+format-disconnected =  <label-disconnected>
+
+[module/time]
+type = internal/date
+interval = 1.0
+
+time = %Y.%m.%d  %H:%M
+time-alt = %d.%m.%y%
+
+label = %time%
+label-padding-right = 3
+
+format = <label>
+
+
+[global/wm]
+margin-bottom = 0
+; vim:ft=dosini
