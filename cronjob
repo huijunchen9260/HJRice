@@ -14,10 +14,10 @@
 */15 * * * * rsync -r $HOME/.config/polybar/ $HOME/ShelbyConfig/ShelbyRicing/.config/polybar/
 
 # vim configuration
-*/15 * * * * rsync $HOME/.config/nvim/ $HOME/ShelbyConfig/ShelbyRicing/.vim/
+*/15 * * * * rsync -rl $HOME/.config/nvim/ $HOME/ShelbyConfig/ShelbyRicing/.config/nvim/
 
 # Backup scripts
-*/15 * * * * rsync -r $HOME/.local/bin/ $HOME/ShelbyConfig/ShelbyRicing/.local/bin/
+*/15 * * * * rsync -rl $HOME/.local/bin/ $HOME/ShelbyConfig/ShelbyRicing/.local/bin/
 
 # Export pacman and AUR program lists
 */15 * * * * pacman -Qqem > $HOME/ShelbyConfig/ShelbyRicing/applist/aurlist

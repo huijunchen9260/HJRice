@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# automatically upload to github repository after all setting is done
+
+
+git add --all "$2"
+git commit -m "$1"
+git push origin master
