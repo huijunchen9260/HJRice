@@ -52,5 +52,8 @@
 # Sync joplin
 */15 * * * * joplin sync
 
+# Automatically push my rice to github
+*/15 * * * * autogit "auto commit" $HOME/ShelbyConfig/ShelbyRicing/
+
 # Export the cronjob list
 */15 * * * * crontab -l > $HOME/ShelbyConfig/ShelbyRicing/cronjob
