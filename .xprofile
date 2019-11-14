@@ -16,7 +16,6 @@ xcompmgr &		# xcompmgr for transparency
 dunst &			# dunst for notifications
 mpdupdate &
 fcitx &			# input method for CJK
-battery-threshold &	# Reset the battery to full charging
-flameshot &
-trackpoint &
+flameshot &		# Enable screenshot
+trackpoint &		# adjust IBM Model M13 trackpoint speed
 
