@@ -23,6 +23,7 @@
 /* *.color13: #ec93d3 */
 /* *.color14: #93e0e3 */
 /* *.color15: #ffffff */
+
 !! gruvbox:
 *.color0: #1d2021
 *.color1: #cc241d
@@ -143,8 +144,10 @@
 *cursor: #dcdccc
 /* #a8a19f */
 /* *background:       #1b1918 */
-*background: rgba(0, 0, 0, 0.9)
+/* *background: rgba(0, 0, 0, 0.9) */
 
+
+/* URxvt Setting: */
 
 URxvt.intensityStyles:	true
 URxvt.background:       [90]#2f2f2f
@@ -161,7 +164,7 @@ URxvt.colorUL:		#add8e6
 !! j to previous url, k to next url.
 !! Return to open url, o to open url and stay in mode
 !! y to copy url, Esc to leave mode
-URxvt.keysym.C-u:	perl:url-select:select_next
+URxvt.keysym.C-Mod4-u:	perl:url-select:select_next
 URxvt.url-select.launcher: linkhandler
 URxvt.url-select.underline: true
 !! keyboard-select:
@@ -170,10 +173,10 @@ URxvt.keysym.S-Escape: perl:keyboard-select:activate
 !! Enable Ctrl-Shift bindings
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt.keysym.C-j:     resize-font:smaller
-URxvt.keysym.C-k:      resize-font:bigger
-URxvt.keysym.C-equal:     resize-font:reset
-URxvt.keysym.C-question:  resize-font:show
+URxvt.keysym.C-Mod4-j:     resize-font:smaller
+URxvt.keysym.C-Mod4-k:      resize-font:bigger
+URxvt.keysym.C-Mod4-equal:     resize-font:reset
+URxvt.keysym.C-Mod4-question:  resize-font:show
 
 /* URxvt.keysym.C-Up:     font-size:increase */
 /* URxvt.keysym.C-Down:   font-size:decrease */

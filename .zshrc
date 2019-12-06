@@ -7,7 +7,9 @@ PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magent
 # History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.cache/zsh/history
+HISTFILE=$HOME/.zsh_history
+setopt appendhistory
+
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -79,5 +81,11 @@ bindkey '^e' edit-command-line
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+# List shortcuts for directories and files
+listshortcut() {
+	cat $HOME/.config/shortcutrc
+}
+bindkey -s '^l' 'listshortcut\n'
 
 setopt auto_cd

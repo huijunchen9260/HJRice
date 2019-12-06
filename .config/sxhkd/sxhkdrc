@@ -3,32 +3,49 @@
 ##############
 
 # Basic binds
+
+# Run Terminal
 mod4 + Return
 	$TERMINAL
+# Run tmux
 mod4 + control + Return
 	$TERMINAL -e tmux
+# App launcher
 mod4 + d
 	dmenu_run
+# File manager based on dmenufm
 mod4 + r
-	dmenufm
-# mod4 + control + r
-# 	$TERMINAL
+	dmenufm -p
+# Open default file manager
+mod4 + control + r
+	$TERMINAL -e $FILE
+	# source ~/.config/fffrc && $TERMINAL -e fffcd &
+	# Not loading zshrc correctly, so source the zshrc first
+# Music player daemon
 mod4 + m
 	$TERMINAL -e ncmpcpp
+# Newsboat
 mod4 + n
 	$TERMINAL -e newsboat
+# Pulsemixer
 mod4 + control + a
 	$TERMINAL -e pulsemixer
+# Open front camera
 mod4 + control + c
 	camtoggle
+# Open tutorial videos
 mod4 + control + e
 	tutorialvids
+# Network Manager
 mod4 + w
 	$TERMINAL -e nmtui
+# Browser
 mod4 + control + w
 	$BROWSER
+# Open texnote script
 mod4 + g
 	texnote
+# Xournalpp
 mod4 + x
 	xournalpp
 
@@ -55,6 +72,8 @@ mod4 + control + g
 	inkfig
 mod4 + control + n
 	$TERMINAL -e joplin
+mod4 + control + t
+	toolbox
 
 # Recording
 # Take screenshot

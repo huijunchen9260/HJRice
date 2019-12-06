@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Toolbox by dmenu. Tools no need to open terminal.
+
+tool=$(printf '%s:' $HOME/.local/bin/hjcmds/toolbox/*  | tr ':' '\n' | awk -F '/' '{print $NF}' | sed '/toolbox/ d' | dmenu -i -p "Toolbox")
+$tool
+
+
+

@@ -1,5 +1,5 @@
-let mapleader = ","
-let maplocalleader = "'"
+let mapleader=","
+let maplocalleader="'"
 
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -27,6 +27,7 @@ Plug 'dylanaraps/fff.vim'
 Plug 'jpalardy/vim-slime'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf.vim'
+Plug 'rhysd/vim-grammarous'
  call plug#end()
 
 set bg=light
@@ -44,6 +45,7 @@ set clipboard=unnamedplus
 	set number relativenumber
 	set linebreak
 	set showbreak=>>>>
+	set showcmd
 	" set textwidth=80
 	set wrap
 " Enable autocompletion:
@@ -262,3 +264,28 @@ endfu
 nnoremap <localleader>w :call WordProcessor()<CR>
 
 
+" Strip the newline from the end of a string
+function! Chomp(str)
+  return substitute(a:str, '\n$', '', '')
+endfunction
+
+" Find a file and pass it to cmd
+function! DmenuOpen(cmd)
+  let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " . a:cmd))
+  if empty(fname)
+    return
+  endif
+  execute a:cmd . " " . fname
+endfunction
+
+" map <c-t> :call DmenuOpen("tabe")<cr>
+map <c-t> :call DmenuOpen("e")<cr>
+
+nnoremap K :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%101v.\+/
+
+" LanguageTool Setting
+
+	"

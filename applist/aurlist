@@ -11,7 +11,6 @@ farbfeld
 fcitx-qt4
 gstreamer0.10-base
 gtk-theme-arc-gruvbox-git
-gurobi
 htop-vim-git
 icons-in-terminal
 ideviceinstaller-git
@@ -29,6 +28,7 @@ remarkable-linux-client
 ruby-highline
 ruby-json
 sc-im
+screenkey
 simple-mtpfs
 simpleburn
 sselp

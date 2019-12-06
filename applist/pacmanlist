@@ -120,6 +120,7 @@ iputils
 jfsutils
 jre-openjdk
 keynav
+languagetool
 ledger
 less
 libburn
@@ -166,6 +167,7 @@ nnn
 noto-fonts-cjk
 noto-fonts-emoji
 ntfs-3g
+obs-studio
 odt2txt
 os-prober
 otf-ipafont
@@ -192,7 +194,9 @@ pycharm-community-edition
 python-dbus
 python-pip
 python-pynvim
+python-pyqt5
 python2-lxml
+python2-pyqt5
 qt5-graphicaleffects
 qt5-webkit
 r
