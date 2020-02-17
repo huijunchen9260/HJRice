@@ -15,7 +15,7 @@ mod4 + d
 	dmenu_run
 # File manager based on dmenufm
 mod4 + r
-	dmenufm -p
+	dmenufm -r -p
 # Open default file manager
 mod4 + control + r
 	$TERMINAL -e $FILE
@@ -76,14 +76,12 @@ mod4 + control + t
 	toolbox
 
 # Recording
-# Take screenshot
 Insert
-	flameshot gui
+    maimpick
+# Take screenshot
 # Print
 # 	maim $HOME/Pictures/screenshots/pic-full-$(date '+%y%m%d-%H%M-%S').png
 # Pick screenshot type
-control + Insert
-	maimpick
 # Record audio or video
 mod4 + Insert
 	dmenurecord
@@ -157,8 +155,11 @@ XF86Tools
 # Function keys
 # Show readme
 mod4 + F1
-	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
-# F2 is restart in i3 right now.
+    toolbox
+	# groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
+# Screenshot
+mod4 + F2
+	maimpick
 # Change display
 mod4 + F3
 	displayselect
@@ -176,7 +177,7 @@ mod4 + F7
 	td-toggle
 # sync email
 mod4 + F8
-	mailsync
+    maimpick
 # Mount a USB drive or Android device
 mod4 + F9
 	dmenumount

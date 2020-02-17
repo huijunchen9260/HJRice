@@ -2,8 +2,14 @@
 
 # Toolbox by dmenu. Tools no need to open terminal.
 
-tool=$(printf '%s:' $HOME/.local/bin/hjcmds/toolbox/*  | tr ':' '\n' | awk -F '/' '{print $NF}' | sed '/toolbox/ d' | dmenu -i -p "Toolbox")
-$tool
+IFS='
+'
+TMP="$(which toolbox)"
+toolpath="$(printf '%s' "${TMP%%/${TMP##*/}}")"
+tools=$( printf '%s\n' $toolpath/* | awk -F '/' '{print $NF}' | grep -v toolbox | dmenu -i -p "Toolbox")
+unset IFS
+
+$tools
 
 
 

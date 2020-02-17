@@ -1,8 +1,6 @@
 #!/bin/sh
 alias ka="killall" \
-	fm="fff "$@"; cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"" \
 	mkd="mkdir -pv" \
-	mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 	calcurse="calcurse -D ~/.config/calcurse" \
 	magit="nvim -c MagitOnly" \
 	p="sudo pacman" \
@@ -28,7 +26,12 @@ alias ka="killall" \
 	ffmpeg="ffmpeg -hide_banner" \
 	mat="matlab -nodesktop -nosplash" \
 	mp="man 1p" \
+	ip="ipython" \
+	lpol="lp -o sides=two-sided-long-edge" \
+	lpos="lp -o sides=two-sided-short-edge"
 
+
+	# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
 shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}

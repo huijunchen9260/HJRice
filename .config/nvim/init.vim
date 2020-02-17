@@ -28,6 +28,11 @@ Plug 'jpalardy/vim-slime'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/vim-grammarous'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'vim-vdebug/vdebug'
+Plug 'szw/vim-maximizer'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'itchyny/calendar.vim'
  call plug#end()
 
 set bg=light
@@ -44,8 +49,9 @@ set clipboard=unnamedplus
 	set encoding=utf-8
 	set number relativenumber
 	set linebreak
-	set showbreak=>>>>
+	set showbreak=********
 	set showcmd
+	set shiftwidth=4
 	" set textwidth=80
 	set wrap
 " Enable autocompletion:
@@ -64,19 +70,27 @@ set clipboard=unnamedplus
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
 
-
-" vimling:
-	nmap <leader>d :call ToggleDeadKeys()<CR>
-	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a
-	nmap <leader>i :call ToggleIPA()<CR>
-	imap <leader>i <esc>:call ToggleIPA()<CR>a
-	nmap <leader>q :call ToggleProse()<CR>
-
 " Shortcutting split navigation, saving a keypress:
-	map <C-h> <C-w>h
-	map <C-j> <C-w>j
-	map <C-k> <C-w>k
-	map <C-l> <C-w>l
+	nnoremap <C-h> <C-w>h
+	nnoremap <C-j> <C-w>j
+	nnoremap <C-k> <C-w>k
+	nnoremap <C-l> <C-w>l
+	" nnoremap <Tab> :tabn<CR>
+
+" Shortcut for navigation within terminal
+	tnoremap <C-j> <C-\><C-n><C-w>j
+	tnoremap <C-k> <C-\><C-n><C-w>k
+	" tnoremap <Tab> <C-\><C-n>:tabn<CR>
+
+" Resize split windows
+	nnoremap `h :vertical-resize -10<CR>
+	nnoremap `j :resize +2<CR>
+	nnoremap `k :resize -2<CR>
+	nnoremap `l :vertical-resize +10<CR>
+	tnoremap `h <C-\><C-n>:vertical-resize -10<CR>
+	tnoremap `j <C-\><C-n>:resize +2<CR>
+	tnoremap `k <C-\><C-n>:resize -2<CR>
+	tnoremap `l <C-\><C-n>:vertical-resize +10<CR>
 
 " Check file in shellcheck:
 	map <leader>s :!clear && shellcheck %<CR>
@@ -180,6 +194,14 @@ set clipboard=unnamedplus
 """C
 	autocmd FileType c map <leader>x :w !gcc % && ./a.out<CR>
 
+"""Fortran
+
+	" func! FortranRun()
+	"     !gfortran % -o %:t:r
+	"     call TermToggle(15)
+	" endfu
+	autocmd FileType fortran map <leader>x :w  !gfortran % -o %:t:r && ./%:t:r<CR>
+
 " Source Shelbyvimterminal.vim
 	source $HOME/.vim/Shelbyvimterminal.vim
 
@@ -196,16 +218,23 @@ set clipboard=unnamedplus
 	let g:fff#split_direction = "nosplitbelow nosplitright"
 
 " Vim-Slime
-	let g:slime_target = "tmux"
-	let g:slime_paste_file = "$HOME/.slime_paste"
-	let g:slime_no_mappings = 1
-	" Vim-slime autoflil default config
-	let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+
+" Vim-Slime setting
+	let g:slime_python_ipython = 1
 	let g:slime_dont_ask_default = 1
-	let g:slime_preserve_curpos = 0
+	let g:slime_no_mappings = 1
 	xmap <c-s><c-s> <Plug>SlimeRegionSend
 	nmap <c-s><c-s> <Plug>SlimeParagraphSend
 	nmap <c-s>c <Plug>SlimeConfig
+" neovim terminal setting for Vim-Slime
+	let g:slime_target = "neovim"
+	let g:slime_default_config = {"jobid": "5"}
+" tmux setting for Vim-Slime
+	" let g:slime_target = "tmux"
+	" let g:slime_paste_file = "$HOME/.slime_paste"
+	" " Vim-slime autoflil default config
+	" let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+	" let g:slime_preserve_curpos = 0
 
 " Set underline in insert mode
 	autocmd InsertEnter * set cul
@@ -245,7 +274,6 @@ set clipboard=unnamedplus
 	endif
 
 
-
 func! WordProcessor()
   " movement changes
   map j gj
@@ -269,9 +297,10 @@ function! Chomp(str)
   return substitute(a:str, '\n$', '', '')
 endfunction
 
-" Find a file and pass it to cmd
+" " Find a file and pass it to cmd
 function! DmenuOpen(cmd)
-  let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " . a:cmd))
+  " let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " . a:cmd))
+  let fname = system("dmenufm -t" . a:cmd)
   if empty(fname)
     return
   endif
@@ -279,9 +308,25 @@ function! DmenuOpen(cmd)
 endfunction
 
 " map <c-t> :call DmenuOpen("tabe")<cr>
-map <c-t> :call DmenuOpen("e")<cr>
+" map <c-t> :call DmenuOpen("e")<cr>
+
+""" vim-maximizer
+
+
+
 
 nnoremap K :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+
+nnoremap <leader>x :!sh -x %<CR>
+
+autocmd FileType markdown,rmd nnoremap <leader>m :GenTocGFM<CR>
+
+set path+=*
+set wildmenu
+
+inoremap <leader>map <c-r>=glob('**/*')<CR>
+
+" set foldmethod=indent
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%101v.\+/
@@ -289,3 +334,10 @@ nnoremap K :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
 " LanguageTool Setting
 
 	"
+""" vim-maximizer
+" let g:maximizer_default_mapping_key = 'F3'
+
+
+""" Calender.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1

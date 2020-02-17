@@ -86,6 +86,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 listshortcut() {
 	cat $HOME/.config/shortcutrc
 }
-bindkey -s '^l' 'listshortcut\n'
+bindkey -s '^r' 'listshortcut\n'
 
 setopt auto_cd
+
+bindkey '^k' history-beginning-search-backward
+bindkey '^j' history-beginning-search-forward

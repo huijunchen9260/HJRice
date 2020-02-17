@@ -3,8 +3,8 @@ x-scheme-handler/magnet=torrent.desktop;
 x-scheme-handler/mailto=mail.desktop;
 text/x-shellscript=text.desktop;
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop
-image/png=img.desktop;
-image/jpeg=img.desktop;
+image/png=sxiv.desktop
+image/jpeg=sxiv.desktop
 image/gif=img.desktop;
 application/rss+xml=rss.desktop
 x-scheme-handler/http=firefox.desktop
@@ -23,6 +23,7 @@ text/plain=nvim.desktop
 text/markdown=nvim.desktop
 text/x-matlab=nvim.desktop
 application/x-shellscript=nvim.desktop
+inode/directory=thunar.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop
