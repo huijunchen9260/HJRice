@@ -2,6 +2,8 @@
 
 setbg &		# Set the background
 sxhkd &	# Bind keys
+remaps &
+$HOME/.config/polybar/launch.sh &
 # Switch to US international with Caps as Mod/Escape
 #setxkbmap -device 11 -option ctrl:nocaps -option altwin:swap_alt_win -variant altgr-intl && killall xcape 2>/dev/null ; xcape -e 'Control_L=Escape' &
 # Set for the external keyboard
@@ -18,4 +20,4 @@ mpdupdate &
 fcitx &			# input method for CJK
 flameshot &		# Enable screenshot
 trackpoint &		# adjust IBM Model M13 trackpoint speed
-
+xrdb ~/.Xresource

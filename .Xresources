@@ -25,22 +25,22 @@
 /* *.color15: #ffffff */
 
 !! gruvbox:
-*.color0: #1d2021
-*.color1: #cc241d
-*.color2: #98971a
-*.color3: #d79921
-*.color4: #458588
-*.color5: #b16286
-*.color6: #689d6a
-*.color7: #a89984
-*.color8: #928374
-*.color9: #fb4934
-*.color10: #b8bb26
-*.color11: #fabd2f
-*.color12: #83a598
-*.color13: #d3869b
-*.color14: #8ec07c
-*.color15: #ebdbb2
+/* *.color0: #1d2021 */
+/* *.color1: #cc241d */
+/* *.color2: #98971a */
+/* *.color3: #d79921 */
+/* *.color4: #458588 */
+/* *.color5: #b16286 */
+/* *.color6: #689d6a */
+/* *.color7: #a89984 */
+/* *.color8: #928374 */
+/* *.color9: #fb4934 */
+/* *.color10: #b8bb26 */
+/* *.color11: #fabd2f */
+/* *.color12: #83a598 */
+/* *.color13: #d3869b */
+/* *.color14: #8ec07c */
+/* *.color15: #ebdbb2 */
 
 
 
@@ -102,6 +102,67 @@
 /* *.color14:      #86c1b9 */
 /* *.color15:      #f8f8f8 */
 
+
+/* ! Modified base16 */
+*.color0:       #181818
+*.color1:       #fc514e
+*.color2:       #a1b56c
+*.color3:       #f7ca88
+*.color4:       #7cafc2
+*.color5:       #ba8baf
+*.color6:       #86c1b9
+*.color7:       #d8d8d8
+*.color8:       #585858
+*.color9:       #ff5874
+*.color10:      #a1b56c
+*.color11:      #f7ca88
+*.color12:      #7cafc2
+*.color13:      #ba8baf
+*.color14:      #86c1b9
+*.color15:      #f8f8f8
+
+/* !! Nightfly */
+/* *background: #011627 */
+/* *foreground: #acb4c2 */
+/* *cursor: #9ca1aa */
+/* *.color0: #1d3b53 */
+/* *.color1: #fc514e */
+/* *.color2: #a1cd5e */
+/* *.color3: #e3d18a */
+/* *.color4: #82aaff */
+/* *.color5: #c792ea */
+/* *.color6: #7fdbca */
+/* *.color7: #a1aab8 */
+/* *.color8: #7c8f8f */
+/* *.color9: #ff5874 */
+/* *.color10: #21c7a8 */
+/* *.color11: #ecc48d */
+/* *.color12: #82aaff */
+/* *.color13: #ae81ff */
+/* *.color14: #7fdbca */
+/* *.color15: #d6deeb */
+/* *selection_background: #b2ceee */
+/* *selection_foreground: #080808 */
+
+/* *.color0:       #212121 */
+/* *.color1:       #303030 */
+/* *.color2:       #353535 */
+/* *.color3:       #4A4A4A */
+/* *.color4:       #B2CCD6 */
+/* *.color5:       #EEFFFF */
+/* *.color6:       #EEFFFF */
+/* *.color7:       #FFFFFF */
+/* *.color8:       #F07178 */
+/* *.color9:       #F78C6C */
+/* *.color10:      #FFCB6B */
+/* *.color11:      #C3E88D */
+/* *.color12:      #89DDFF */
+/* *.color13:      #82AAFF */
+/* *.color14:      #C792EA */
+/* *.color15:      #FF5370 */
+
+
+
 /* !! solarized */
 /* *.color0:	#073642 */
 /* *.color1:	#dc322f */
@@ -137,13 +198,56 @@
 /* *.color13:  #ff00ff */
 /* *.color14:  #00ffff */
 /* *.color15:  #aabac8 */
+
+/* #define nord0 #2E3440 */
+/* #define nord1 #3B4252 */
+/* #define nord2 #434C5E */
+/* #define nord3 #4C566A */
+/* #define nord4 #D8DEE9 */
+/* #define nord5 #E5E9F0 */
+/* #define nord6 #ECEFF4 */
+/* #define nord7 #8FBCBB */
+/* #define nord8 #88C0D0 */
+/* #define nord9 #81A1C1 */ /* #define nord10 #5E81AC */ /* #define nord11 #BF616A */
+/* #define nord12 #D08770 */
+/* #define nord13 #EBCB8B */
+/* #define nord14 #A3BE8C */
+/* #define nord15 #B48EAD */
+
+/* *.foreground:   nord4 */
+/* *.background:   nord0 */
+/* *.cursorColor:  nord4 */
+/* *fading: 35 */
+/* *fadeColor: nord3 */
+
+/* *.color0: nord1 */
+/* *.color1: nord11 */
+/* *.color2: nord14 */
+/* *.color3: nord13 */
+/* *.color4: nord9 */
+/* *.color5: nord15 */
+/* *.color6: nord8 */
+/* *.color7: nord5 */
+/* *.color8: nord3 */
+/* *.color9: nord11 */
+/* *.color10: nord14 */
+/* *.color11: nord13 */
+/* *.color12: nord9 */
+/* *.color13: nord15 */
+/* *.color14: nord7 */
+/* *.color15: nord6 */
+
+
+
+
+
 *foreground: #dcdccc
 /* #00cc00 */
 *foreground_bold: #ffffff
 /* #a8a19f */
 *cursor: #dcdccc
 /* #a8a19f */
-/* *background:       #1b1918 */
+*background:       #1b1918
 /* *background: rgba(0, 0, 0, 0.9) */
 
 
@@ -152,7 +256,16 @@
 URxvt.intensityStyles:	true
 URxvt.background:       [90]#2f2f2f
 URxvt.depth:		32
-urxvt.font: 		xft:monospace:size=20
+/* URxvt.font: 		xft:monospace:size=20 */
+URxvt.font: 		xft:ibm plex mono:size=20,\
+			xft:DejaVu Sans Mono:size=20,\
+			xft:IPAGothic:size=20,\
+			xft:FreeMono:size=20,\
+			xft:FreeSans:size=20,\
+			xft:Symbola:size=20,\
+			xft:Joypixels:size=9,\
+			-*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+/* URxvt.letterspace:	-1 */
 URxvt.scrollBar:	false
 URxvt.cursorColor:	#dcdccc
 
@@ -166,6 +279,7 @@ URxvt.colorUL:		#add8e6
 !! y to copy url, Esc to leave mode
 URxvt.keysym.C-Mod4-u:	perl:url-select:select_next
 URxvt.url-select.launcher: linkhandler
+/* URxvt.url-select.launcher: /usr/bin/xdg-open */
 URxvt.url-select.underline: true
 !! keyboard-select:
 URxvt.keysym.S-Escape: perl:keyboard-select:activate
@@ -189,3 +303,6 @@ URxvt.keysym.C-p: perl:clipboard:paste
 
 Sxiv.foreground: #bbbbbb
 Sxiv.background: #222222
+
+Xcursor.theme: Neutral
+Xcursor.size: 48

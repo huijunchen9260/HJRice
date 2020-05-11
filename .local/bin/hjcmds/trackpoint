@@ -1,16 +1,29 @@
 #!/bin/sh
 
-ModelMID=$(xinput --list | grep "Barcode Reader  Mouse" | cut -f 2 | cut -d '=' -f 2)
-veloID=$(xinput list-props $ModelMID | grep "Velocity" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
-consID=$(xinput list-props $ModelMID | grep "Constant" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
+list="$(xinput --list | grep "slave  pointer" | grep -E "ThinkPad|Barcode Reader  Mouse")"
 
-xinput set-prop $ModelMID $veloID 0.01
-xinput set-prop $ModelMID $consID 0.3
-
-
-
-# consID=$(xinput list-props $ModelMID | grep "Constant" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
-
-# USBID=$(xinput --list | grep "slave  pointer" | grep "ThinkPad" | cut -f 2 | cut -d '=' -f 2)
-# accelID=$(xinput list-props $ModelMID | grep "Accel Speed" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
-# xinput set-prop $ModelMID $accelID 0.01 || exit 0
+IFS='
+'
+for item in $list; do
+    id=$(printf '%s' "$item" | cut -f 2 | cut -d '=' -f 2)
+    name=$(printf '%s' "$item" | cut -f 1 | cut -d ' ' -f 5-)
+    case $name in
+	"Lite-On Technology Corp. ThinkPad USB Keyboard with TrackPoint")
+	    AccelID="$(xinput list-props "$id" | grep "Accel Speed" | head -n 1 | cut -d '(' -f 2 | cut -d ')' -f 1)"
+	    NatureScrollID="$(xinput list-props "$id" | grep "Natural Scrolling" | head -n 1 | cut -d '(' -f 2 | cut -d ')' -f 1)"
+	    xinput set-prop $id $AccelID -0.4
+	    xinput set-prop $id $NatureScrollID 0
+	    ;;
+	"Lenovo ThinkPad Compact USB Keyboard with TrackPoint")
+	    AccelID="$(xinput list-props "$id" | grep "Accel Speed" | head -n 1 | cut -d '(' -f 2 | cut -d ')' -f 1)"
+	    xinput set-prop $id $AccelID -0.1
+	    ;;
+	"Barcode Reader  Mouse")
+	    veloID=$(xinput list-props $id | grep "Velocity" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
+	    consID=$(xinput list-props $id | grep "Constant" | cut -f 2 | cut -d ' ' -f 5 | cut -d '(' -f 2 | cut -d ')' -f 1)
+	    xinput set-prop $id $veloID 0.01
+	    xinput set-prop $id $consID 0.3
+	    ;;
+    esac
+done
+unset IFS

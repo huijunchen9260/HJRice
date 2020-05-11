@@ -1,6 +1,10 @@
 [colors]
-glass  = #00000000
-light  = #eee
+; glass  = #00000000
+; glass  = #000000
+glass = #282828
+; light  = #eee
+; light  = #000
+light = #ebdbb2
 ash    = #999
 blood = #ddFF7F7F
 
@@ -56,7 +60,7 @@ font-1 = Noto Sans CJK TC:style=Regular
 modules-left = bspwm xwindow
 modules-right = mpd cpu memory battery-zero-shell battery-one-shell pulseaudio wireless-network wired-network time
 
-wm-restack = "true"
+wm-restack = bspwm
 
 separator="|    "
 
@@ -115,7 +119,7 @@ label-empty-foreground = ${colors.ash}
 
 [module/xwindow]
 type = internal/xwindow
-label-maxlen = 40
+label-maxlen = 20
 
 
 ; [module/tabs]
@@ -142,7 +146,8 @@ label =  %percentage%%
 type = internal/memory
 interval = 3
 format = <label>
-label =  %gb_used%/%gb_total%
+label =  %gb_used%
+; /%gb_total%
 
 
 [module/battery-zero-shell]

@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# dmenufm-open "$(dmenufm-menu)"
-dmenufm-menu

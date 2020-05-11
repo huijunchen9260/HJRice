@@ -9,38 +9,30 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'junegunn/goyo.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
-Plug 'LukeSmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'kovetskiy/sxhkd-vim'
-" Plugin from Shelby
 Plug 'rlue/vim-barbaric'
-Plug 'chrisbra/csv.vim'
-Plug 'lervag/vimtex'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'dylanaraps/fff.vim'
 Plug 'jpalardy/vim-slime'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf.vim'
-Plug 'rhysd/vim-grammarous'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'vim-vdebug/vdebug'
 Plug 'szw/vim-maximizer'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'itchyny/calendar.vim'
- call plug#end()
+Plug 'VebbNix/dmenufm.vim'
+Plug 'ap/vim-css-color'
+Plug 'lervag/vimtex'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+call plug#end()
 
 set bg=light
 set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
-
+set ignorecase
+set smartcase
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
@@ -49,23 +41,32 @@ set clipboard=unnamedplus
 	set encoding=utf-8
 	set number relativenumber
 	set linebreak
-	set showbreak=********
+	" set showbreak=......
 	set showcmd
 	set shiftwidth=4
+	set cindent
+	" set colorcolumn=81
+	" set wm=10
 	" set textwidth=80
 	set wrap
+" Load vimrc everytime it is saved
+	autocmd BufWritePost $MYVIMRC,*.vim source %
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Apply text width limit to markdown and tex
+	" autocmd BufRead,BufNewFile *.md,*.tex setlocal textwidth=80 fo-=l fo+=t
 " Goyo plugin makes text more readable when writing prose:
-	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
+	map <leader>n :Goyo \| set bg=light \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	" setlocal spell
 	" set spelllang=en_us
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
+	" Spellcheck on the fly
+	inoremap <C-o> <c-g>u<Esc>[s1z=``a<c-g>u
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
@@ -82,15 +83,28 @@ set clipboard=unnamedplus
 	tnoremap <C-k> <C-\><C-n><C-w>k
 	" tnoremap <Tab> <C-\><C-n>:tabn<CR>
 
+" J in insert mode but reverse
+	nnoremap K :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+
+" Move selection
+	xnoremap K :move '<-2<CR>gv-gv
+	xnoremap J :move '>+1<CR>gv-gv
+
+" Enter to newline in normal
+	nnoremap <CR> o<ESC>
+
 " Resize split windows
-	nnoremap `h :vertical-resize -10<CR>
+	nnoremap `h :vertical-resize -5<CR>
 	nnoremap `j :resize +2<CR>
 	nnoremap `k :resize -2<CR>
-	nnoremap `l :vertical-resize +10<CR>
+	nnoremap `l :vertical-resize +5<CR>
 	tnoremap `h <C-\><C-n>:vertical-resize -10<CR>
 	tnoremap `j <C-\><C-n>:resize +2<CR>
 	tnoremap `k <C-\><C-n>:resize -2<CR>
 	tnoremap `l <C-\><C-n>:vertical-resize +10<CR>
+" Better tabbing
+	vnoremap > >gv
+	vnoremap < <gv
 
 " Check file in shellcheck:
 	map <leader>s :!clear && shellcheck %<CR>
@@ -135,30 +149,22 @@ set clipboard=unnamedplus
 
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
-"""LATEX
-	" Word count:
-	autocmd FileType tex map <localleader>w :w !detex \| wc -w<CR>
-	"" Code snippets
-	autocmd FileType tex inoremap ,li <Enter>\item<Space>
-
-
+	autocmd BufWritePost config.def.h !rm ./config.h; sudo make install
 " Vim-commentary matlab command
 	autocmd Filetype matlab setlocal commentstring=%%s
 
 " Solve for lag for tmux when switching mode
 	set ttimeoutlen=100
+" Activate makefile
 
 " Vimtex setting
 	let g:tex_flavor='latex'
 	let g:vimtex_view_method='zathura'
 	let g:vimtex_quickfix_mode=0
 	let g:vimtex_compiler_progname="nvr"
-	" set conceallevel=1
-	" let g:tex_conceal='abdmg'
 	let g:vimtex_compiler_latexmk = {
 	    \ 'options' : [
 	    \   '-pdf',
@@ -169,6 +175,12 @@ set clipboard=unnamedplus
 	    \   '-interaction=nonstopmode',
 	    \ ]
 	    \}
+" Tex-conceal.vim
+	set conceallevel=2
+	let g:tex_conceal='abdmg'
+
+" Vim-repeat
+	silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 
 " Spellcheck highlighting
@@ -181,8 +193,9 @@ set clipboard=unnamedplus
 	hi clear SpellLocal
 	hi SpellLocal cterm=bold,underline
 
-" Spellcheck on the fly
-	inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+" Comment italic
+	highlight Comment cterm=italic
+
 
 """Python
 	"autocmd FileType python map <leader>x :w !python<CR>
@@ -200,35 +213,52 @@ set clipboard=unnamedplus
 	"     !gfortran % -o %:t:r
 	"     call TermToggle(15)
 	" endfu
-	autocmd FileType fortran map <leader>x :w  !gfortran % -o %:t:r && ./%:t:r<CR>
+	autocmd FileType fortran nnoremap <leader>x :w  !gfortran % -o %:t:r && ./%:t:r<CR>
 
 " Source Shelbyvimterminal.vim
 	source $HOME/.vim/Shelbyvimterminal.vim
 
+" Source snippet.vim
+	source $HOME/.vim/snippet/texsnippet.vim
+	source $HOME/.vim/snippet/shsnippet.vim
+	source $HOME/.vim/snippet/mdsnippet.vim
+" Read snippet on the fly
+	nnoremap <leader>h :!snippethelp<CR>
+" Synctex
+	function! Synctex()
+	    let vimura_param = " --synctex-forward " . line('.') . ":" . col('.') . ":" . expand('%:p') . " " . substitute(expand('%:p'),"tex$","pdf", "")
+	    if has('nvim')
+		call jobstart("vimura neovim" . vimura_param)
+	    else
+		exe "silent !vimura vim" . vimura_param . "&"
+	    endif
+	    redraw!
+	endfunction
+	nnoremap <leader>i :call Synctex()<CR>
+" Autocompile
+	nnoremap <leader>a :!setsid autocomp % &<CR>
 
-" csv.vim
-	let g:csv_strict_columns = 1
-
-" fff setting
-	" Open fff on press of 'f'
-	nnoremap <leader>n :F<CR>
-	" Vertical split (NERDtree style).
-	let g:fff#split = "30vnew"
-	" Open split on the left side (NERDtree style).
-	let g:fff#split_direction = "nosplitbelow nosplitright"
+" Dmenufm setting
+	nnoremap <leader>f :Dmenufm<CR>
 
 " Vim-Slime
-
 " Vim-Slime setting
 	let g:slime_python_ipython = 1
 	let g:slime_dont_ask_default = 1
 	let g:slime_no_mappings = 1
+	let g:slime_paste_file="$HOME/.cache/.slime.paste"
 	xmap <c-s><c-s> <Plug>SlimeRegionSend
 	nmap <c-s><c-s> <Plug>SlimeParagraphSend
 	nmap <c-s>c <Plug>SlimeConfig
+" X11 -> tabbed
+	let g:slime_target = "x11"
+	function SlimeOverrideConfig()
+	  let b:slime_config = {"window_id": ""}
+	  let b:slime_config["window_id"] = system("tabbed-slime")
+	endfunction
 " neovim terminal setting for Vim-Slime
-	let g:slime_target = "neovim"
-	let g:slime_default_config = {"jobid": "5"}
+	" let g:slime_target = "neovim"
+	" let g:slime_default_config = {"jobid": "3"}
 " tmux setting for Vim-Slime
 	" let g:slime_target = "tmux"
 	" let g:slime_paste_file = "$HOME/.slime_paste"
@@ -251,71 +281,45 @@ set clipboard=unnamedplus
 
 
 " Inkscape setting
-	inoremap <localleader>f <ESC>v^y:!inkfig <C-R>+<CR><ESC><S-V>
+	" inoremap <localleader>f <ESC>v^y:!inkfig <C-R>+<CR><ESC><S-V>
 	" yank the line and paste as inkfig argument
 	" See :help cmdline.txt <C-R> for more detail
-	nnoremap <localleader>f :!edifig<CR>
-
-	vnoremap <localleader>e y:!latex_table.sh <C-R>+<CR>
-
-" Ultisnips setting
-	let g:UltiSnipsExpandTrigger = '<tab>'
-	let g:UltiSnipsJumpForwardTrigger = '<tab>'
-	let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-	" let g:UltiSnipsSnippetsDir="/home/shelby/.config/nvim/snips"
-	let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.config/nvim/snips']
-
+	" nnoremap <localleader>f :!edifig<CR>
+	" vnoremap <localleader>e y:!latex_table.sh <C-R>+<CR>
 
 " Leave insert mode and save
 	" @% denotes for current file name
 	" If current file name is not empty string, then save the file whenever leave the insert mode.
-	if @% != ""
-		autocmd InsertLeave * write
-	endif
+	" if @% != ""
+	" 	autocmd InsertLeave * write
+	" endif
 
 
-func! WordProcessor()
+" func! WordProcessor()
   " movement changes
-  map j gj
-  map k gk
+  " map j gj
+  " map k gk
   " formatting text
-  setlocal formatoptions=1
-  setlocal noexpandtab
-  setlocal wrap
-  setlocal linebreak
+  " setlocal formatoptions=1
+  " setlocal noexpandtab
+  " setlocal wrap
+  " setlocal linebreak
   " spelling and thesaurus
-  setlocal spell spelllang=en_us
-  set thesaurus+=$HOME/.vim/thesaurus/mthesaur.txt
+  " setlocal spell spelllang=en_us
+  " set thesaurus+=$HOME/.vim/thesaurus/mthesaur.txt
   " complete+=s makes autocompletion search the thesaurus
-  set complete+=s
-endfu
-nnoremap <localleader>w :call WordProcessor()<CR>
-
-
-" Strip the newline from the end of a string
-function! Chomp(str)
-  return substitute(a:str, '\n$', '', '')
-endfunction
-
-" " Find a file and pass it to cmd
-function! DmenuOpen(cmd)
-  " let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " . a:cmd))
-  let fname = system("dmenufm -t" . a:cmd)
-  if empty(fname)
-    return
-  endif
-  execute a:cmd . " " . fname
-endfunction
+  " set complete+=s
+" endfu
+" nnoremap <localleader>w :call WordProcessor()<CR>
 
 " map <c-t> :call DmenuOpen("tabe")<cr>
 " map <c-t> :call DmenuOpen("e")<cr>
 
 """ vim-maximizer
+" let g:maximizer_default_mapping_key = 'F3'
 
 
 
-
-nnoremap K :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
 
 nnoremap <leader>x :!sh -x %<CR>
 
@@ -330,14 +334,3 @@ inoremap <leader>map <c-r>=glob('**/*')<CR>
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%101v.\+/
-
-" LanguageTool Setting
-
-	"
-""" vim-maximizer
-" let g:maximizer_default_mapping_key = 'F3'
-
-
-""" Calender.vim
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1

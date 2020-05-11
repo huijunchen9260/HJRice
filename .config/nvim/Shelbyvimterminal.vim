@@ -59,6 +59,6 @@
     " tnoremap <Tab>t <C-\><C-n>:call TermTab()<CR>
 
 " Terminal go back to normal mode
-    tnoremap <Esc> <C-\><C-n>
+    " tnoremap <Esc> <C-\><C-n>
     tnoremap :q! <C-\><C-n>:q!<CR>
 

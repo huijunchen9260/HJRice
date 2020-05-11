@@ -28,7 +28,8 @@ alias ka="killall" \
 	mp="man 1p" \
 	ip="ipython" \
 	lpol="lp -o sides=two-sided-long-edge" \
-	lpos="lp -o sides=two-sided-short-edge"
+	lpos="lp -o sides=two-sided-short-edge" \
+	nvim="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
 
 
 	# mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)" \

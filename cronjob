@@ -16,6 +16,12 @@
 # vim configuration
 */15 * * * * rsync -rl $HOME/.config/nvim/ $HOME/ShelbyConfig/ShelbyRicing/.config/nvim/
 
+# Other configurtion
+*/15 * * * * rsync -rl $HOME/.config/zathura/ $HOME/ShelbyConfig/ShelbyRicing/.config/zathura/
+*/15 * * * * rsync -rl $HOME/.config/mpd/ $HOME/ShelbyConfig/ShelbyRicing/.config/mpd/
+*/15 * * * * rsync -rl $HOME/.config/mpv/ $HOME/ShelbyConfig/ShelbyRicing/.config/mpv/
+*/15 * * * * rsync -rl $HOME/.config/ncmpcpp/ $HOME/ShelbyConfig/ShelbyRicing/.config/ncmpcpp/
+
 # Backup scripts
 */15 * * * * rsync -rl $HOME/.local/bin/ $HOME/ShelbyConfig/ShelbyRicing/.local/bin/
 
@@ -53,7 +59,7 @@
 */15 * * * * joplin sync
 
 # Automatically push my rice to github
-*/15 * * * * autogit "auto commit" $HOME/ShelbyConfig/ShelbyRicing/
+# */15 * * * * cd $HOME/ShelbyConfig/ShelbyRicing/ && autogit "auto commit"
 
 # Export the cronjob list
 */15 * * * * crontab -l > $HOME/ShelbyConfig/ShelbyRicing/cronjob

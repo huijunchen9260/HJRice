@@ -15,11 +15,18 @@ tex2png () {
 }
 
 [ ! -d "/tmp/texnote" ] && mkdir -p "/tmp/texnote"
-alpha=$(printf '%s\n' "on" "off" | dmenu -i -p "Alpha value?")
-choice=$(printf '%s\n' /tmp/texnote/*.tex | cut -d '/' -f 4 | sort -r | dmenu -i -l 10 -p "Edit which equation?" | cut -d '.' -f 1)
-if [ "$choice" = "" ]; then
- 	cp "$TEMPLATEPATH" "$TMPNAME.tex"
-	tex2png "$TMPNAME" "$alpha"
-else
-	tex2png "$TMPFILE_DIR/$choice" "$alpha"
-fi
+
+
+EqGraph () {
+    alpha=$(printf '%s\n' "on" "off" | dmenu -i -p "Alpha value?")
+    choice=$(printf '%s\n' /tmp/texnote/*.tex | cut -d '/' -f 4 | sort -r | dmenu -i -l 10 -p "Edit which equation?" | cut -d '.' -f 1)
+    if [ -z "$choice" ]; then
+	    cp "$TEMPLATEPATH" "$TMPNAME.tex"
+	    $TERMINAL -e $EDITOR "$TMPNAME.tex"
+	    tex2png "$TMPNAME.tex" "$alpha"
+    else
+	    tex2png "$TMPFILE_DIR/$choice" "$alpha"
+    fi
+}
+
+EqGraph
